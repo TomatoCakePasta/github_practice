@@ -13,6 +13,7 @@ button {
 }
 
 /* ホバー時の色とポインターの変更 */
+/* デザインタスク: ボタンホバーの実装 */
 button:hover {
     background-color: #ff0000f6;
     cursor: pointer;

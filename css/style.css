@@ -139,3 +139,41 @@ header {
     /* p のデフォルト余白を消す */
     margin: 0;
 }
+
+/* モーダル背景 */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 本体 */
+.modal-content {
+    background: #fff;
+    width: 90%;
+    max-width: 400px;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+/* 注文リスト */
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
