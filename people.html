@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>人数入力</title>
+    <link rel="stylesheet" href="css/people.css">
+</head>
+
+<body class="people-page">
+
+    <div class="people-container">
+        <img src="./images/ui/logo.png" class="logo" alt="">
+        <h1>人数を入力してください</h1>
+
+        <div class="counter">
+            <span>大人</span>
+            <button onclick="subCount('adult')">−</button>
+            <span id="adult">0</span>
+            <button onclick="addCount('adult')">＋</button>
+        </div>
+
+        <div class="counter">
+            <span>子供</span>
+            <button onclick="subCount('child')">−</button>
+            <span id="child">0</span>
+            <button onclick="addCount('child')">＋</button>
+        </div>
+
+        <button class="start-button" onclick="startOrder()">
+            注文を開始
+        </button>
+    </div>
+
+    <script src="js/people.js"></script>
+</body>
+
+</html>

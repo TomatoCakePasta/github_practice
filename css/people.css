@@ -1,0 +1,63 @@
+/* ===== 背景 ===== */
+.people-page {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.center {
+    text-align: center;
+}
+
+/* ===== 中央カード ===== */
+.logo {
+    width: 100px;
+    height: 100px;
+}
+
+.people-container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 32px;
+    border-radius: 16px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.people-container h1 {
+    margin-bottom: 24px;
+}
+
+/* ===== カウンター ===== */
+.counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px 0;
+    font-size: 20px;
+}
+
+.counter button {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    background: #ffcc00;
+    cursor: pointer;
+}
+
+/* ===== 開始ボタン ===== */
+.start-button {
+    margin-top: 24px;
+    width: 100%;
+    padding: 16px;
+    font-size: 20px;
+    border: none;
+    border-radius: 12px;
+    background: #ff6600;
+    color: #fff;
+}

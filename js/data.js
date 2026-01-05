@@ -10,13 +10,13 @@ export const MENU_DATA = {
                     id: "hamburg",
                     name: "ハンバーグ",
                     price: 800,
-                    image: "images/hamburg.jpg"
+                    image: "images/menus/hamburg.png"
                 },
                 {
                     id: "curry",
                     name: "カレー",
                     price: 700,
-                    image: "images/curry.jpg"
+                    image: "images/menus/curry.png"
                 }
             ]
         },
@@ -28,13 +28,13 @@ export const MENU_DATA = {
                     id: "cola",
                     name: "コーラ",
                     price: 300,
-                    image: "images/cola.jpg"
+                    image: "images/menus/cola.png"
                 },
                 {
                     id: "coffee",
                     name: "コーヒー",
                     price: 350,
-                    image: "../images/coffee.png"
+                    image: "../images/menus/coffee.png"
                 }
             ]
         }
