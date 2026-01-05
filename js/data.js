@@ -25,14 +25,38 @@ export const MENU_DATA = {
             name: "ドリンク",
             items: [
                 {
-                    id: "cola",
-                    name: "コーラ",
+                    id: "goca-cola",
+                    name: "ゴカ・コーラ",
                     price: 300,
                     image: "images/menus/cola.png"
                 },
                 {
                     id: "coffee",
                     name: "コーヒー",
+                    price: 350,
+                    image: "../images/menus/coffee.png"
+                },
+                {
+                    id: "papsi-cola",
+                    name: "パプシ・コーラ",
+                    price: 300,
+                    image: "images/menus/papsi.png"
+                },
+                {
+                    id: "cocoa",
+                    name: "ココア",
+                    price: 350,
+                    image: "../images/menus/coffee.png"
+                },
+                {
+                    id: "matz-cola",
+                    name: "Matz Cola",
+                    price: 300,
+                    image: "images/menus/matz.png"
+                },
+                {
+                    id: "cafe-latte",
+                    name: "カフェラテ",
                     price: 350,
                     image: "../images/menus/coffee.png"
                 }

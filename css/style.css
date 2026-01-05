@@ -39,7 +39,7 @@ header {
 /* メニュー */
 .menu {
     width: 55%;
-    height: 320px;
+    height: 100%;
     padding: 16px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -48,6 +48,7 @@ header {
 }
 
 .item {
+    max-height: 350px;
     background: #fff;
     border-radius: 8px;
     padding: 12px;
