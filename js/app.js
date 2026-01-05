@@ -26,6 +26,7 @@ const categoriesEl = document.getElementById("categories");
 const menuEl = document.getElementById("menu");
 const orderCounterEl = document.getElementById("order-counter");
 
+const orderTitleEl = document.getElementById("order-title");
 const confirmOrderBtn = document.getElementById("confirm-button");
 const modal = document.getElementById("order-modal");
 const orderList = document.getElementById("order-list");
@@ -124,6 +125,7 @@ function renderCart() {
 
 // モーダル関連
 window.openOrderModal = function () {
+    resetOrderMsg();
     modal.classList.remove("hidden");
     renderOrderList();
     updateConfirmOrderButton();
@@ -172,12 +174,22 @@ function renderOrderList() {
 
 // 注文確定
 window.confirmOrder = function () {
-    modal.classList.add("hidden");
+
     calcTotal();
     resetCart();
     countCart();
     renderCart();
+    renderOrderList();
+
+    orderTitleEl.textContent = "できあがりまで少々お待ちください"
+    confirmOrderBtn.textContent = "注文が完了しました!"
+
+    // 2秒後に自動で閉じる
+    setTimeout(() => {
+        modal.classList.add("hidden");
+    }, 2000);
 }
+
 
 window.closeCheckModal = function () {
     modal.classList.add("hidden");
@@ -195,6 +207,11 @@ function calcTotal() {
 
 function resetCart() {
     cart = {};
+}
+
+function resetOrderMsg() {
+    orderTitleEl.textContent = "注文内容の確認"
+    confirmOrderBtn.textContent = "注文を確定"
 }
 
 function updateConfirmOrderButton() {
