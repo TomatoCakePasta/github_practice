@@ -3,16 +3,7 @@ let childCount = 0;
 
 let adultEl = document.getElementById("adult");
 let childEl = document.getElementById("child");
-
-function changeCount(type, delta) {
-    if (type === "adult") {
-        adultCount = Math.max(0, adultCount + delta);
-        adultEl.textContent = adultCount;
-    } else {
-        childCount = Math.max(0, childCount + delta);
-        childEl.textContent = childCount;
-    }
-}
+let startBtnEl = document.getElementById("start-button");
 
 function addCount(type) {
     if (type === "adult") {
@@ -23,6 +14,8 @@ function addCount(type) {
         childCount = Math.max(0, childCount + 1);
         childEl.textContent = childCount;
     }
+
+    updateStartButton();
 }
 
 function subCount(type) {
@@ -33,6 +26,21 @@ function subCount(type) {
     else if (type === "child") {
         childCount = Math.max(0, childCount - 1);
         childEl.textContent = childCount;
+    }
+
+    updateStartButton();
+}
+
+function updateStartButton() {
+    const total = adultCount + childCount;
+
+    if (total < 1) {
+        startBtnEl.textContent = "人数を入力してください";
+        startBtnEl.disabled = true;
+    }
+    else {
+        startBtnEl.textContent = "注文を開始する"
+        startBtnEl.disabled = false;
     }
 }
 

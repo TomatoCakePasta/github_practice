@@ -50,6 +50,12 @@
     cursor: pointer;
 }
 
+/* ホバー時の色とポインターの変更 */
+.counter button:hover {
+    background-color: #ffaa00;
+    cursor: pointer;
+}
+
 /* ===== 開始ボタン ===== */
 .start-button {
     margin-top: 24px;
@@ -60,4 +66,15 @@
     border-radius: 12px;
     background: #ff6600;
     color: #fff;
+}
+
+/* 無効状態 */
+.start-button:disabled {
+    background: #969696;
+}
+
+/* 有効状態の時かつホバー時の色とポインターの変更 */
+.start-button:not(:disabled):hover {
+    background-color: #ff0000f6;
+    cursor: pointer;
 }
