@@ -7,10 +7,10 @@ export const MENU_DATA = {
             name: "フード",
             items: [
                 {
-                    id: "hamburg",
-                    name: "ハンバーグ",
+                    id: "steak",
+                    name: "ステーキ",
                     price: 800,
-                    image: "images/menus/hamburg.png"
+                    image: "images/menus/steak.png"
                 },
                 {
                     id: "curry",
