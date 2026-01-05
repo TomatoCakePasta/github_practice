@@ -112,3 +112,30 @@ header {
     background: #ff6600;
     color: #fff;
 } */
+
+.order-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.order-counter {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+
+    background: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* p のデフォルト余白を消す */
+    margin: 0;
+}

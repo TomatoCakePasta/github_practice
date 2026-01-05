@@ -20,6 +20,7 @@ let currentCategory = MENU_DATA.categories[0];
 // ===== 初期表示 =====
 const categoriesEl = document.getElementById("categories");
 const menuEl = document.getElementById("menu");
+const orderCounterEl = document.getElementById("order-counter");
 
 // カテゴリ描画
 MENU_DATA.categories.forEach(category => {
@@ -68,6 +69,17 @@ function addToCart(item) {
     }
     cart[item.id].qty++;
     renderCart();
+    countCart();
+}
+
+function countCart() {
+    let cartItems = 0;
+
+    for (const key in cart) {
+        cartItems += cart[key].qty;
+    }
+
+    orderCounterEl.textContent = cartItems.toString();
 }
 
 function renderCart() {
