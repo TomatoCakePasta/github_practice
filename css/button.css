@@ -12,9 +12,14 @@ button {
     transition: .1s;
 }
 
+/* 無効状態 */
+button:disabled {
+    background: #969696;
+}
+
 /* ホバー時の色とポインターの変更 */
 /* デザインタスク: ボタンホバーの実装 */
-button:hover {
+button:not(:disabled):hover {
     background-color: #ff0000f6;
     cursor: pointer;
 }

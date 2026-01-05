@@ -18,7 +18,7 @@ let cart = {};
 let currentCategory = MENU_DATA.categories[0];
 let total = 0;
 
-let cart_total;
+let cart_total = 0;
 let cart_history = [];
 
 // ===== 初期表示 =====
@@ -26,6 +26,7 @@ const categoriesEl = document.getElementById("categories");
 const menuEl = document.getElementById("menu");
 const orderCounterEl = document.getElementById("order-counter");
 
+const confirmOrderBtn = document.getElementById("confirm-button");
 const modal = document.getElementById("order-modal");
 const orderList = document.getElementById("order-list");
 
@@ -125,6 +126,7 @@ function renderCart() {
 window.openOrderModal = function () {
     modal.classList.remove("hidden");
     renderOrderList();
+    updateConfirmOrderButton();
 }
 
 // 金額が1多いかも
@@ -133,6 +135,7 @@ window.addLastCart = function (id) {
     countCart();
     renderCart();
     renderOrderList();
+    updateConfirmOrderButton();
 }
 
 window.subLastCart = function (id) {
@@ -144,6 +147,7 @@ window.subLastCart = function (id) {
     countCart();
     renderCart();
     renderOrderList();
+    updateConfirmOrderButton();
 }
 
 function renderOrderList() {
@@ -175,10 +179,31 @@ window.confirmOrder = function () {
     renderCart();
 }
 
+window.closeCheckModal = function () {
+    modal.classList.add("hidden");
+    if (cart_total == 0) {
+        resetCart();
+        countCart();
+        renderCart();
+        renderOrderList();
+    }
+}
+
 function calcTotal() {
     total += cart_total;
 }
 
 function resetCart() {
     cart = {};
+}
+
+function updateConfirmOrderButton() {
+    if (cart_total < 1) {
+        confirmOrderBtn.disabled = true;
+        confirmOrderBtn.textContent = "メニューを選んでください";
+    }
+    else {
+        confirmOrderBtn.disabled = false;
+        confirmOrderBtn.textContent = "注文を確定する"
+    }
 }

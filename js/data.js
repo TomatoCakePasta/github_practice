@@ -37,6 +37,18 @@ export const MENU_DATA = {
                     image: "../images/menus/coffee.png"
                 }
             ]
+        },
+        {
+            id: "side",
+            name: "サイドメニュー",
+            items: [
+                {
+                    id: "potato",
+                    name: "ポテト",
+                    price: 400,
+                    image: null
+                }
+            ]
         }
     ]
 };

@@ -20,7 +20,7 @@
             <div id="cartItems"></div>
             <div class="total">合計: ¥<span id="total">0</span></div>
             <div class="order-wrapper">
-                <button class="order-button" onclick="openOrderModal()">注文に進む</button>
+                <button id="order-button" class="order-button" onclick="openOrderModal()">注文に進む</button>
                 <span id="order-counter" class="order-counter">0</span>
             </div>
             <div class="order-wrapper">
@@ -29,8 +29,9 @@
         </div>
     </div>
     <!-- 注文確認ポップアップ -->
-    <div id="order-modal" class="modal hidden">
-        <div class="modal-content">
+    <div id="order-modal" class="modal hidden" onclick="closeCheckModal()">
+        <!-- closeCheckModal()を止める 画面外のみクリックでモーダルを閉じるため -->
+        <div class="modal-content" onclick="event.stopPropagation()">
             <h2>注文内容の確認</h2>
 
             <div id="order-list" class="order-list">
