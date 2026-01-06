@@ -17,9 +17,9 @@ button:disabled {
     background: #969696;
 }
 
-/* ホバー時の色とポインターの変更 */
-/* デザインタスク: ボタンホバーの実装 */
-button:not(:disabled):hover {
-    background-color: #ff0000f6;
-    cursor: pointer;
-}
+/*  =========================
+    C. デザインタスク: ボタンホバー機能
+    背景, cursorを指定の値に設定してください
+    2行でかけます
+ ========================= */
+button:not(:disabled):hover {}

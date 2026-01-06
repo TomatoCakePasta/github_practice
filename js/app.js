@@ -258,8 +258,12 @@ function resetOrderMessage() {
 }
 
 function updateConfirmOrderButton() {
+    // カートが空の場合 (メニュー追加をしたが、注文確認画面で減らした場合)
+    // true, falseが代入される
     const disabled = currentOrderTotal === 0;
+
     confirmOrderBtn.disabled = disabled;
+
     confirmOrderBtn.textContent = disabled
         ? "メニューを選んでください"
         : "注文を確定する";

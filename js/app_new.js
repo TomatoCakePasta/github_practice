@@ -191,6 +191,7 @@ window.confirmOrder = function () {
         closeModal(orderModal);
         resetOrderMessage();
         updateConfirmOrderButton();
+        location.assign("people.html");
     }, 2000);
 };
 

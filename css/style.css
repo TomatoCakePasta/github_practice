@@ -42,10 +42,12 @@ header {
     border-bottom: 1px solid #eee;
 }
 
-.category.active {
-    background: #ffcc00;
-    font-weight: bold;
-}
+/* =========================
+   E. デザインタスク: 選択カテゴリの強調
+   選択中のカテゴリを黄色背景, 太字で強調しましょう
+   2行でかけます
+========================= */
+.category.active {}
 
 /* =========================
    Menu
