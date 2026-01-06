@@ -27,10 +27,14 @@ const menuEl = document.getElementById("menu");
 const orderCounterEl = document.getElementById("order-counter");
 
 const orderTitleEl = document.getElementById("order-title");
+const historyTitleEl = document.getElementById("history-title");
 const confirmOrderBtn = document.getElementById("confirm-button");
+const confirmCheckBtn = document.getElementById("confirm-check-button");
 const modal = document.getElementById("order-modal");
 const orderList = document.getElementById("order-list");
+const orderHistory = document.getElementById("order-history");
 const checkModal = document.getElementById("check-modal");
+const orderTotal = document.getElementById("order-total");
 
 // カテゴリ描画
 MENU_DATA.categories.forEach(category => {
@@ -82,7 +86,6 @@ function addToCart(item) {
     cart[item.id].qty++;
     renderCart();
     countCart();
-    addHistory(item);
 }
 
 function addHistory(item) {
@@ -114,16 +117,17 @@ function renderCart() {
 
         const div = document.createElement("div");
         div.className = "cart-item";
-        div.innerHTML = `
-            <span>${item.name} × ${item.qty}</span>
-            <span>¥${itemTotal}</span>
+        div.innerHTML += `
+            <div class="order-item">
+                <span class="item-name">${item.name}</span>
+                <span>× ${item.qty}</span>
+                <span class="item-price">¥${itemTotal}</span>
+            </div>
         `;
         cartItemsEl.appendChild(div);
     });
 
     totalEl.textContent = total + cart_total;
-
-    updateCartHistory(cart);
 }
 
 // カートを履歴に追加する関数
@@ -133,7 +137,7 @@ function updateCartHistory(cart) {
 
     // historyEntry に timestamp を持たせる
     const historyEntry = {
-        timestamp: timestamp,
+        // timestamp: timestamp,
         items: Object.values(cart).map(item => ({
             name: item.name,
             price: item.price,
@@ -144,6 +148,7 @@ function updateCartHistory(cart) {
 
     cart_history.push(historyEntry);
 
+    console.log("cart_history");
     console.log(cart_history);
 }
 
@@ -157,6 +162,7 @@ window.openOrderModal = function () {
 
 window.openCheckModal = function () {
     checkModal.classList.remove("hidden");
+    renderOrderHistory();
 }
 
 // 金額が1多いかも
@@ -200,9 +206,35 @@ function renderOrderList() {
     });
 }
 
+function renderOrderHistory() {
+    orderHistory.innerHTML = ""; // まず既存の履歴をクリア
+
+    cart_history.forEach((order, orderIndex) => {
+        // 1件の注文ごとに見出しを作る
+        orderHistory.innerHTML += `<h3>注文 ${orderIndex + 1}</h3>`;
+
+        // その注文の items を回す
+        order.items.forEach((item, itemIndex) => {
+            if (item.qty < 1) {
+                return;
+            }
+            orderHistory.innerHTML += `
+                <div class="order-item">
+                    <span>${item.name}</span>
+                    <span>数量: ${item.qty}</span>
+                    <span>合計: ¥${item.total}</span>
+                </div>
+            `;
+        });
+    });
+
+    orderTotal.textContent = `お支払い合計:  ¥${total}`;
+}
+
 // 注文確定
 window.confirmOrder = function () {
 
+    updateCartHistory(cart);
     calcTotal();
     resetCart();
     countCart();
@@ -218,6 +250,25 @@ window.confirmOrder = function () {
     }, 2000);
 }
 
+// 支払い確定
+window.confirmCheck = function () {
+
+    updateCartHistory(cart);
+    calcTotal();
+    resetCart();
+    countCart();
+    renderCart();
+    renderOrderList();
+
+    historyTitleEl.textContent = "またのご来店お待ちしております"
+    confirmCheckBtn.textContent = "お支払いが完了しました!"
+
+    // 2秒後に自動で閉じる
+    setTimeout(() => {
+        // 自動遷移
+        window.location.href = "people.html";
+    }, 3000);
+}
 
 window.closeOrderModal = function () {
     modal.classList.add("hidden");

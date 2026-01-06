@@ -51,16 +51,16 @@
     <div id="check-modal" class="modal hidden" onclick="closeCheckModal()">
         <!-- closeCheckModal()を止める 画面外のみクリックでモーダルを閉じるため -->
         <div class="modal-content" onclick="event.stopPropagation()">
-            <h2 id="order-title">注文履歴</h2>
+            <h2 id="history-title">注文履歴</h2>
 
             <div id="order-history" class="order-history">
                 <!-- JSでアイテムを挿入 -->
             </div>
-            <div>
-                合計金額
+            <div id="order-total-content">
+                <span id="order-total">お支払い合計:</span>
             </div>
 
-            <button id="confirm-button" class="confirm-button" onclick="">
+            <button id="confirm-check-button" class="confirm-button" onclick="confirmCheck()">
                 ご精算
             </button>
         </div>

@@ -192,3 +192,46 @@ header {
     align-items: center;
     gap: 8px;
 }
+
+.order-history {
+    max-height: 300px;
+    /* モーダル内で表示する最大高さ */
+    overflow-y: auto;
+    /* 縦スクロール */
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    /* 左右に広げる */
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+    min-width: 300px;
+    /* 必要に応じて調整 */
+}
+
+.order-item span {
+    flex: 1;
+    /* 均等に幅を割り当て */
+    text-align: left;
+    /* 左寄せ */
+}
+
+.order-item span:nth-child(2),
+.order-item span:nth-child(3) {
+    text-align: center;
+    /* 数量と合計は中央揃え */
+}
+
+#order-total-content {
+    display: flex;
+    margin: 10px;
+}
+
+#order-total {
+    margin-left: auto;
+}
