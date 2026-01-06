@@ -19,13 +19,15 @@
         <div class="cart">
             <h2>カート</h2>
             <div id="cartItems"></div>
-            <div class="total">合計: ¥<span id="total">0</span></div>
-            <div class="order-wrapper">
-                <button id="order-button" class="order-button" onclick="openOrderModal()">注文に進む</button>
-                <span id="order-counter" class="order-counter">0</span>
-            </div>
-            <div class="order-wrapper">
-                <button class="order-button" onclick="opeCheckModal()">お会計</button>
+            <div class="cart-bottom">
+                <div class="total">合計: ¥<span id="total">0</span></div>
+                <div class="order-wrapper order-button-el">
+                    <button id="order-button" class="order-button" onclick="openOrderModal()">注文に進む</button>
+                    <span id="order-counter" class="order-counter">0</span>
+                </div>
+                <div class="order-wrapper">
+                    <button class="order-button" onclick="opeCheckModal()">お会計</button>
+                </div>
             </div>
         </div>
     </div>

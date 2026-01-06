@@ -20,6 +20,7 @@ header {
 /* カテゴリ */
 .categories {
     width: 20%;
+    height: 100%;
     background: #fff;
     border-right: 1px solid #ddd;
 }
@@ -81,7 +82,10 @@ header {
 
 /* カート */
 .cart {
+    display: flex;
+    flex-direction: column;
     width: 25%;
+    height: 100%;
     background: #fff;
     border-left: 1px solid #ddd;
     padding: 16px;
@@ -114,9 +118,19 @@ header {
     color: #fff;
 } */
 
-.order-wrapper {
-    position: relative;
+.cart-bottom {
+    margin-top: auto;
     width: 100%;
+    right: 0;
+    bottom: 100px;
+}
+
+.order-wrapper {
+    margin-top: 20px;
+}
+
+.order-button-el {
+    position: relative;
 }
 
 .order-counter {
