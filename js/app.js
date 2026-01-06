@@ -1,61 +1,63 @@
-// ===== メニューデータ =====
-// const data = {
-//     "フード": [
-//         { name: "ハンバーグ", price: 800 },
-//         { name: "カレー", price: 700 },
-//         { name: "オムライス", price: 800 },
-//     ],
-//     "ドリンク": [
-//         { name: "コーラ", price: 300 },
-//         { name: "コーヒー", price: 350 }
-//     ]
-// };
-
 // js/app.js
 import { MENU_DATA } from "./data.js";
 
-let cart = {};
-let currentCategory = MENU_DATA.categories[0];
-let total = 0;
+/* =========================
+   アプリ状態
+========================= */
+let cartItems = {};                 // 現在のカート（id: item）
+let selectedCategory = MENU_DATA.categories[0];
+let currentOrderTotal = 0;          // 今回の注文金額
+let totalPaymentAmount = 0;         // 累計支払額
+let orderHistoryList = [];          // 注文履歴
 
-let cart_total = 0;
-let cart_history = [];
-
-// ===== 初期表示 =====
+/* =========================
+   DOM参照
+========================= */
 const categoriesEl = document.getElementById("categories");
 const menuEl = document.getElementById("menu");
-const orderCounterEl = document.getElementById("order-counter");
+const cartCounterEl = document.getElementById("order-counter");
+
+const orderModal = document.getElementById("order-modal");
+const checkModal = document.getElementById("check-modal");
 
 const orderTitleEl = document.getElementById("order-title");
 const historyTitleEl = document.getElementById("history-title");
+
 const confirmOrderBtn = document.getElementById("confirm-button");
 const confirmCheckBtn = document.getElementById("confirm-check-button");
-const modal = document.getElementById("order-modal");
-const orderList = document.getElementById("order-list");
-const orderHistory = document.getElementById("order-history");
-const checkModal = document.getElementById("check-modal");
-const orderTotal = document.getElementById("order-total");
 
-// カテゴリ描画
-MENU_DATA.categories.forEach(category => {
-    const div = document.createElement("div");
-    div.className = "category";
-    div.textContent = category.name;
-    div.onclick = () => selectCategory(category);
-    categoriesEl.appendChild(div);
-});
+const orderListEl = document.getElementById("order-list");
+const orderHistoryEl = document.getElementById("order-history");
+const orderTotalEl = document.getElementById("order-total");
 
+/* =========================
+   初期化
+========================= */
 console.log("app.js loaded");
+renderCategories();
+selectCategory(selectedCategory);
 
-selectCategory(currentCategory);
+/* =========================
+   カテゴリ描画
+========================= */
+function renderCategories() {
+    MENU_DATA.categories.forEach(category => {
+        const div = document.createElement("div");
+        div.className = "category";
+        div.textContent = category.name;
+        div.onclick = () => selectCategory(category);
+        categoriesEl.appendChild(div);
+    });
+}
 
-// ===== カテゴリ切り替え =====
+/* =========================
+   メニュー表示
+========================= */
 function selectCategory(category) {
-    currentCategory = category;
-    console.log(category);
+    selectedCategory = category;
 
-    document.querySelectorAll(".category").forEach(c => {
-        c.classList.toggle("active", c.textContent === category.name);
+    document.querySelectorAll(".category").forEach(el => {
+        el.classList.toggle("active", el.textContent === category.name);
     });
 
     menuEl.innerHTML = "";
@@ -64,60 +66,68 @@ function selectCategory(category) {
         const div = document.createElement("div");
         div.className = "item";
         div.innerHTML = `
-            <img src="${item.image}" alt="${item.name}の画像">
+            <img src="${item.image}" alt="${item.name}">
             <h3>${item.name}</h3>
             <p>¥${item.price}</p>
             <button class="add-menu">追加</button>
         `;
-        div.querySelector("button").onclick = () => addToCart(item);
+        div.querySelector("button").onclick = () => addItemToCart(item);
         menuEl.appendChild(div);
     });
 }
 
-// ===== カート処理 =====
-function addToCart(item) {
-    if (!cart[item.id]) {
-        cart[item.id] = {
+/* =========================
+   カート操作
+========================= */
+function addItemToCart(item) {
+    if (!cartItems[item.id]) {
+        cartItems[item.id] = {
             name: item.name,
             price: item.price,
             qty: 0
         };
     }
-    cart[item.id].qty++;
-    renderCart();
-    countCart();
+    cartItems[item.id].qty++;
+    updateCartView();
 }
 
-function addHistory(item) {
-    cart_history.push(item);
-    console.log(cart_history);
-}
+window.addLastCart = function (id) {
+    cartItems[id].qty++;
+    updateCartView();
+};
 
-function countCart() {
-    let cartItems = 0;
-
-    for (const key in cart) {
-        cartItems += cart[key].qty;
+window.subLastCart = function (id) {
+    if (cartItems[id].qty < 1) {
+        return;
     }
+    cartItems[id].qty--;
+    updateCartView();
+};
 
-    orderCounterEl.textContent = cartItems.toString();
+/* =========================
+   カート描画・計算
+========================= */
+function updateCartView() {
+    renderCartItems();
+    renderOrderList();
+    updateCartCounter();
+    updateConfirmOrderButton();
 }
 
-function renderCart() {
+function renderCartItems() {
     const cartItemsEl = document.getElementById("cartItems");
     const totalEl = document.getElementById("total");
 
     cartItemsEl.innerHTML = "";
+    currentOrderTotal = 0;
 
-    cart_total = 0;
-
-    Object.values(cart).forEach(item => {
+    Object.values(cartItems).forEach(item => {
         const itemTotal = item.price * item.qty;
-        cart_total += itemTotal;
+        currentOrderTotal += itemTotal;
 
         const div = document.createElement("div");
         div.className = "cart-item";
-        div.innerHTML += `
+        div.innerHTML = `
             <div class="order-item">
                 <span class="item-name">${item.name}</span>
                 <span>× ${item.qty}</span>
@@ -127,72 +137,32 @@ function renderCart() {
         cartItemsEl.appendChild(div);
     });
 
-    totalEl.textContent = total + cart_total;
+    totalEl.textContent = currentOrderTotal;
 }
 
-// カートを履歴に追加する関数
-function updateCartHistory(cart) {
-    const timestamp = new Date().toISOString(); // いつの履歴か記録
-    if (cart_total === 0) return; // カートが空なら履歴に追加しない
+function updateCartCounter() {
+    const totalQty = Object.values(cartItems)
+        .reduce((sum, item) => sum + item.qty, 0);
 
-    // historyEntry に timestamp を持たせる
-    const historyEntry = {
-        // timestamp: timestamp,
-        items: Object.values(cart).map(item => ({
-            name: item.name,
-            price: item.price,
-            qty: item.qty,
-            total: item.price * item.qty
-        }))
-    };
-
-    cart_history.push(historyEntry);
-
-    console.log("cart_history");
-    console.log(cart_history);
+    cartCounterEl.textContent = totalQty;
 }
 
-// モーダル関連
+/* =========================
+   注文確認モーダル
+========================= */
 window.openOrderModal = function () {
-    resetOrderMsg();
-    modal.classList.remove("hidden");
-    renderOrderList();
+    resetOrderMessage();
     updateConfirmOrderButton();
-}
-
-window.openCheckModal = function () {
-    checkModal.classList.remove("hidden");
-    renderOrderHistory();
-}
-
-// 金額が1多いかも
-window.addLastCart = function (id) {
-    cart[id].qty++;
-    countCart();
-    renderCart();
+    orderModal.classList.remove("hidden");
     renderOrderList();
-    updateConfirmOrderButton();
-}
-
-window.subLastCart = function (id) {
-    if (cart[id].qty < 1) {
-        return;
-    }
-
-    cart[id].qty--;
-    countCart();
-    renderCart();
-    renderOrderList();
-    updateConfirmOrderButton();
-}
+};
 
 function renderOrderList() {
-    orderList.innerHTML = "";
+    orderListEl.innerHTML = "";
 
-    Object.entries(cart).forEach(([id, item]) => {
+    Object.entries(cartItems).forEach(([id, item]) => {
         const row = document.createElement("div");
         row.className = "order-item";
-
         row.innerHTML = `
             <span>${item.name}</span>
             <div class="qty-controls">
@@ -201,24 +171,34 @@ function renderOrderList() {
                 <button onclick="addLastCart('${id}')">＋</button>
             </div>
         `;
+        orderListEl.appendChild(row);
+    });
+}
 
-        orderList.appendChild(row);
+/* =========================
+   注文履歴
+========================= */
+function saveOrderHistory() {
+    if (currentOrderTotal === 0) return;
+
+    orderHistoryList.push({
+        items: Object.values(cartItems).map(item => ({
+            name: item.name,
+            price: item.price,
+            qty: item.qty,
+            total: item.price * item.qty
+        }))
     });
 }
 
 function renderOrderHistory() {
-    orderHistory.innerHTML = ""; // まず既存の履歴をクリア
+    orderHistoryEl.innerHTML = "";
 
-    cart_history.forEach((order, orderIndex) => {
-        // 1件の注文ごとに見出しを作る
-        orderHistory.innerHTML += `<h3>注文 ${orderIndex + 1}</h3>`;
+    orderHistoryList.forEach((order, index) => {
+        orderHistoryEl.innerHTML += `<h3>注文 ${index + 1}</h3>`;
 
-        // その注文の items を回す
-        order.items.forEach((item, itemIndex) => {
-            if (item.qty < 1) {
-                return;
-            }
-            orderHistory.innerHTML += `
+        order.items.forEach(item => {
+            orderHistoryEl.innerHTML += `
                 <div class="order-item">
                     <span>${item.name}</span>
                     <span>数量: ${item.qty}</span>
@@ -228,82 +208,76 @@ function renderOrderHistory() {
         });
     });
 
-    orderTotal.textContent = `お支払い合計:  ¥${total}`;
+    orderTotalEl.textContent = `お支払い合計: ¥${totalPaymentAmount}`;
 }
 
-// 注文確定
+/* =========================
+   注文・会計確定
+========================= */
 window.confirmOrder = function () {
-
-    updateCartHistory(cart);
-    calcTotal();
+    saveOrderHistory();
+    totalPaymentAmount += currentOrderTotal;
     resetCart();
-    countCart();
-    renderCart();
-    renderOrderList();
 
-    orderTitleEl.textContent = "できあがりまで少々お待ちください"
-    confirmOrderBtn.textContent = "注文が完了しました!"
+    orderTitleEl.textContent = "できあがりまで少々お待ちください";
+    confirmOrderBtn.textContent = "注文が完了しました!";
 
-    // 2秒後に自動で閉じる
-    setTimeout(() => {
-        modal.classList.add("hidden");
-    }, 2000);
-}
+    setTimeout(() => orderModal.classList.add("hidden"), 2000);
+};
 
-// 支払い確定
+window.openCheckModal = function () {
+    checkModal.classList.remove("hidden");
+    renderOrderHistory();
+};
+
 window.confirmCheck = function () {
+    historyTitleEl.textContent = "またのご来店お待ちしております";
+    confirmCheckBtn.textContent = "お支払いが完了しました!";
 
-    updateCartHistory(cart);
-    calcTotal();
-    resetCart();
-    countCart();
-    renderCart();
-    renderOrderList();
+    // ユーザ操作を無効化
+    document.querySelector("body").inert = true;
 
-    historyTitleEl.textContent = "またのご来店お待ちしております"
-    confirmCheckBtn.textContent = "お支払いが完了しました!"
-
-    // 2秒後に自動で閉じる
     setTimeout(() => {
-        // 自動遷移
+        // 操作無効化を解除
+        document.querySelector("body").inert = false;
+
         window.location.href = "people.html";
     }, 3000);
+};
+
+/* =========================
+   リセット・補助
+========================= */
+function resetCart() {
+    cartItems = {};
+    updateCartView();
+}
+
+function resetOrderMessage() {
+    orderTitleEl.textContent = "注文内容の確認";
+}
+
+function updateConfirmOrderButton() {
+    const disabled = currentOrderTotal === 0;
+    confirmOrderBtn.disabled = disabled;
+    confirmOrderBtn.textContent = disabled
+        ? "メニューを選んでください"
+        : "注文を確定する";
 }
 
 window.closeOrderModal = function () {
-    modal.classList.add("hidden");
-    if (cart_total == 0) {
-        resetCart();
-        countCart();
-        renderCart();
-        renderOrderList();
-    }
+    // qty が 0 の商品を cartItems から削除
+    Object.keys(cartItems).forEach(id => {
+        console.log(cartItems[id]);
+        if (cartItems[id].qty === 0) {
+            delete cartItems[id];
+        }
+    });
+
+    updateCartView();
+    orderModal.classList.add("hidden");
 }
 
 window.closeCheckModal = function () {
     checkModal.classList.add("hidden");
-}
-
-function calcTotal() {
-    total += cart_total;
-}
-
-function resetCart() {
-    cart = {};
-}
-
-function resetOrderMsg() {
-    orderTitleEl.textContent = "注文内容の確認"
-    confirmOrderBtn.textContent = "注文を確定"
-}
-
-function updateConfirmOrderButton() {
-    if (cart_total < 1) {
-        confirmOrderBtn.disabled = true;
-        confirmOrderBtn.textContent = "メニューを選んでください";
-    }
-    else {
-        confirmOrderBtn.disabled = false;
-        confirmOrderBtn.textContent = "注文を確定する"
-    }
-}
+} 
