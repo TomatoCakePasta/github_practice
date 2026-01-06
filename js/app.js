@@ -30,6 +30,7 @@ const orderTitleEl = document.getElementById("order-title");
 const confirmOrderBtn = document.getElementById("confirm-button");
 const modal = document.getElementById("order-modal");
 const orderList = document.getElementById("order-list");
+const checkModal = document.getElementById("check-modal");
 
 // カテゴリ描画
 MENU_DATA.categories.forEach(category => {
@@ -59,7 +60,7 @@ function selectCategory(category) {
         const div = document.createElement("div");
         div.className = "item";
         div.innerHTML = `
-            <img src="${item.image}" alt="${item.name}の画像を作ってください">
+            <img src="${item.image}" alt="${item.name}の画像">
             <h3>${item.name}</h3>
             <p>¥${item.price}</p>
             <button class="add-menu">追加</button>
@@ -131,6 +132,10 @@ window.openOrderModal = function () {
     updateConfirmOrderButton();
 }
 
+window.openCheckModal = function () {
+    checkModal.classList.remove("hidden");
+}
+
 // 金額が1多いかも
 window.addLastCart = function (id) {
     cart[id].qty++;
@@ -191,7 +196,7 @@ window.confirmOrder = function () {
 }
 
 
-window.closeCheckModal = function () {
+window.closeOrderModal = function () {
     modal.classList.add("hidden");
     if (cart_total == 0) {
         resetCart();
@@ -199,6 +204,10 @@ window.closeCheckModal = function () {
         renderCart();
         renderOrderList();
     }
+}
+
+window.closeCheckModal = function () {
+    checkModal.classList.add("hidden");
 }
 
 function calcTotal() {
