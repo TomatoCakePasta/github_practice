@@ -122,6 +122,29 @@ function renderCart() {
     });
 
     totalEl.textContent = total + cart_total;
+
+    updateCartHistory(cart);
+}
+
+// カートを履歴に追加する関数
+function updateCartHistory(cart) {
+    const timestamp = new Date().toISOString(); // いつの履歴か記録
+    if (cart_total === 0) return; // カートが空なら履歴に追加しない
+
+    // historyEntry に timestamp を持たせる
+    const historyEntry = {
+        timestamp: timestamp,
+        items: Object.values(cart).map(item => ({
+            name: item.name,
+            price: item.price,
+            qty: item.qty,
+            total: item.price * item.qty
+        }))
+    };
+
+    cart_history.push(historyEntry);
+
+    console.log(cart_history);
 }
 
 // モーダル関連
