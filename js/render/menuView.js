@@ -1,8 +1,8 @@
 /**
  * 選択中カテゴリのメニュー描画
- * @param {*} category 
- * @param {*} menuEl 
- * @param {*} onAdd 
+ * @param {object} category 
+ * @param {HTMLElement} menuEl 
+ * @param {Function} onAdd
  */
 export function renderMenu(category, menuEl, onAdd) {
     menuEl.innerHTML = "";

@@ -21,6 +21,9 @@ export function subQty(id) {
     }
 }
 
+/**
+ * 商品数が0のメニューを削除
+ */
 export function removeZeroQtyItems() {
     Object.keys(cartState.cartItems).forEach(id => {
         if (cartState.cartItems[id].qty === 0) {

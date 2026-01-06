@@ -1,3 +1,7 @@
+/**
+ * 
+ * 
+ */
 export const cartState = {
     // 現在カートに入れてる商品
     cartItems: {},

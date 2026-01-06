@@ -2,9 +2,9 @@ import { cartState } from "../state/cartState.js";
 
 /**
  * メニューの描画
- * @param {*} cartItemsEl 
- * @param {*} totalEl 
- * @param {*} counterEl 
+ * @param {HTMLElement} cartItemsEl 
+ * @param {HTMLElement} totalEl 
+ * @param {HTMLElement} counterEl 
  */
 export function renderCart(cartItemsEl, totalEl, counterEl) {
     cartItemsEl.innerHTML = "";
@@ -37,9 +37,9 @@ export function renderCart(cartItemsEl, totalEl, counterEl) {
 
 /**
  * 注文内容の描画
- * @param {*} orderListEl 
- * @param {*} onAdd 
- * @param {*} onSub 
+ * @param {HTMLElement} orderListEl 
+ * @param {Function} onAdd 
+ * @param {Function} onSub 
  */
 export function renderOrderList(orderListEl, onAdd, onSub) {
     orderListEl.innerHTML = "";

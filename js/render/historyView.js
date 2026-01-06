@@ -1,5 +1,10 @@
 import { cartState } from "../state/cartState.js";
 
+/**
+ * 会計画面の描画
+ * @param {HTMLElement} containerEl 
+ * @param {HTMLElement} totalEl 
+ */
 export function renderOrderHistory(containerEl, totalEl) {
     containerEl.innerHTML = "";
 
