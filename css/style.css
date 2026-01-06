@@ -1,9 +1,15 @@
+/* =========================
+   Base
+========================= */
 body {
     margin: 0;
     font-family: sans-serif;
     background: #f5f5f5;
 }
 
+/* =========================
+   Header
+========================= */
 header {
     background: #222;
     color: #fff;
@@ -12,24 +18,28 @@ header {
     font-size: 24px;
 }
 
+/* =========================
+   Layout
+========================= */
 .container {
     display: flex;
     height: calc(100vh - 64px);
 }
 
-/* カテゴリ */
+/* =========================
+   Categories
+========================= */
 .categories {
     width: 20%;
-    height: 100%;
     background: #fff;
     border-right: 1px solid #ddd;
 }
 
 .category {
     padding: 16px;
-    border-bottom: 1px solid #eee;
     text-align: center;
     cursor: pointer;
+    border-bottom: 1px solid #eee;
 }
 
 .category.active {
@@ -37,10 +47,11 @@ header {
     font-weight: bold;
 }
 
-/* メニュー */
+/* =========================
+   Menu
+========================= */
 .menu {
     width: 55%;
-    height: 100%;
     padding: 16px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -68,27 +79,16 @@ header {
     margin: 0 0 8px;
 }
 
-/*
-.item button {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    background: #ff6600;
-    color: #fff;
-    border-radius: 6px;
-}
-    */
-
-/* カート */
+/* =========================
+   Cart
+========================= */
 .cart {
+    width: 25%;
     display: flex;
     flex-direction: column;
-    width: 25%;
-    height: 100%;
+    padding: 16px;
     background: #fff;
     border-left: 1px solid #ddd;
-    padding: 16px;
 }
 
 .cart h2 {
@@ -107,17 +107,6 @@ header {
     font-weight: bold;
 }
 
-/* .order-button {
-    margin-top: 24px;
-    width: 100%;
-    padding: 16px;
-    font-size: 20px;
-    border: none;
-    border-radius: 12px;
-    background: #ff6600;
-    color: #fff;
-} */
-
 .cart-bottom {
     margin-top: auto;
     width: 100%;
@@ -125,6 +114,11 @@ header {
     bottom: 100px;
 }
 
+
+
+/* =========================
+   Order Button & Counter
+========================= */
 .order-wrapper {
     margin-top: 20px;
 }
@@ -137,25 +131,22 @@ header {
     position: absolute;
     top: -6px;
     right: -6px;
-
     width: 22px;
     height: 22px;
     border-radius: 50%;
-
     background: red;
-    color: white;
+    color: #fff;
     font-size: 12px;
     font-weight: bold;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    /* p のデフォルト余白を消す */
     margin: 0;
 }
 
-/* モーダル背景 */
+/* =========================
+   Modal
+========================= */
 .modal {
     position: fixed;
     inset: 0;
@@ -170,16 +161,27 @@ header {
     display: none;
 }
 
-/* 本体 */
 .modal-content {
-    background: #fff;
     width: 90%;
     max-width: 400px;
     padding: 16px;
+    background: #fff;
     border-radius: 8px;
 }
 
-/* 注文リスト */
+
+/* =========================
+   Order History
+========================= */
+.order-history {
+    max-height: 300px;
+    /* 縦スクロール */
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
 .order-item {
     display: flex;
     justify-content: space-between;
@@ -191,4 +193,40 @@ header {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    /* 左右に広げる */
+    align-items: center;
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+    min-width: 300px;
+    /* 必要に応じて調整 */
+}
+
+.order-item span {
+    flex: 1;
+    /* 均等に幅を割り当て */
+    text-align: left;
+    /* 左寄せ */
+}
+
+.order-item span:nth-child(2),
+.order-item span:nth-child(3) {
+    text-align: center;
+    /* 数量と合計は中央揃え */
+}
+
+/* =========================
+   Order Total
+========================= */
+#order-total-content {
+    display: flex;
+    margin: 10px;
+}
+
+#order-total {
+    margin-left: auto;
 }
