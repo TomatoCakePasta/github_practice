@@ -12,6 +12,11 @@ export function renderCart(cartItemsEl, totalEl, counterEl) {
 
     let totalQty = 0;
 
+    /* =========================
+        D. デザインタスク: 金額表記の統一
+        カート金額と合計金額の表記を ¥ で統一しましょう
+        変更は1箇所のみです
+    ========================= */
     Object.values(cartState.cartItems).forEach(item => {
         const itemTotal = item.price * item.qty;
         cartState.currentOrderTotal += itemTotal;
@@ -24,7 +29,7 @@ export function renderCart(cartItemsEl, totalEl, counterEl) {
                 <div class="order-item">
                     <span>${item.name}</span>
                     <span>× ${item.qty}</span>
-                    <span>¥${itemTotal}</span>
+                    <span>${itemTotal}円</span>
                 </div>
             </div>
             `
@@ -32,7 +37,14 @@ export function renderCart(cartItemsEl, totalEl, counterEl) {
     });
 
     totalEl.textContent = cartState.currentOrderTotal;
-    counterEl.textContent = totalQty;
+
+
+    /* =========================
+        J. 実装タスク: カート商品数の表示
+        カートに追加された商品の個数を正しく表示しましょう
+        商品個数を表す変数を代入してください
+    ========================= */
+    counterEl.textContent = 0;
 }
 
 /**

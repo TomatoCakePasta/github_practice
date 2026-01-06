@@ -13,15 +13,21 @@ let startBtnEl = document.getElementById("start-button");
 ========================= */
 function addCount(type) {
     if (type === "adult") {
-        // adultCountの値を1つ増やす
-        adultCount = Math.max(0, adultCount + 1);
+        /*  =========================
+            F. 実装タスク: 人数追加機能 
+            adultCountの値を1つ増やすコードを書いてください
+            1行かけます
+        ========================= */
 
         // adultConutの値をページに反映させる
         adultEl.textContent = adultCount;
     }
     else if (type === "child") {
-        // childCountの値を1つ増やす
-        childCount = Math.max(0, childCount + 1);
+        /*  =========================
+            F. 実装タスク: 人数追加機能 
+            childCountの値を1つ増やすコードを書いてください
+            1行でかけます
+        ========================= */
 
         // childConutの値をページに反映させる
         childEl.textContent = childCount;
@@ -32,15 +38,23 @@ function addCount(type) {
 
 function subCount(type) {
     if (type === "adult") {
-        // adultCountの値を1つ減らす
-        adultCount = Math.max(0, adultCount - 1);
+        /*  =========================
+            G. 実装タスク: 人数修正機能 
+            adultCountの値を1つ減らすコードを書いてください
+            負の数になる場合は0を代入すること
+            Mathを使うと1行でもかけます
+        ========================= */
 
         // adultConutの値をページに反映させる
         adultEl.textContent = adultCount;
     }
     else if (type === "child") {
-        // childCountの値を1つ減らす
-        childCount = Math.max(0, childCount - 1);
+        /*  =========================
+            G. 実装タスク: 人数修正機能 
+            childCountの値を1つ増やすコードを書いてください
+            負の数になる場合は0を代入すること
+            Mathを使うと1行でもかけます
+        ========================= */
 
         // childConutの値をページに反映させる
         childEl.textContent = childCount;
@@ -73,6 +87,10 @@ function startOrder() {
     localStorage.setItem("adult", adultCount);
     localStorage.setItem("child", childCount);
 
-    // 自動遷移
-    window.location.href = "index.html";
+    /* =========================
+        I. 実装タスク: ページ遷移機能
+        index.htmlページに遷移するコードを書いてください
+        1行でかけます
+    ========================= */
+
 }
